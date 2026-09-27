@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Reem Khalid — Graphic Design Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    --bg: #f6f4f0;
+    --surface: #ffffff;
+    --text: #33312e;
+    --muted: #7a766f;
+    --accent: #9c8a6e;
+    --line: #e3ddd2;
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1c1b19;
+      --surface: #262523;
+      --text: #ece8e1;
+      --muted: #a39d92;
+      --accent: #c3ad86;
+      --line: #38362f;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1c1b19;
+    --surface: #262523;
+    --text: #ece8e1;
+    --muted: #a39d92;
+    --accent: #c3ad86;
+    --line: #38362f;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 48px 24px 80px; }
+  header { margin-bottom: 56px; }
+  h1 { font-size: 1.9rem; font-weight: 700; margin: 0 0 6px; letter-spacing: -0.02em; }
+  .role { color: var(--muted); font-size: 1rem; margin-bottom: 20px; }
+  .about { max-width: 640px; color: var(--text); font-size: 0.98rem; }
+  .links { margin-top: 18px; display: flex; gap: 14px; flex-wrap: wrap; }
+  .links a {
+    color: var(--accent); text-decoration: none; font-weight: 600; font-size: 0.9rem;
+    border-bottom: 1px solid var(--accent); padding-bottom: 1px;
+  }
+  h2.section-title {
+    font-size: 1rem; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--muted); margin: 0 0 22px; border-bottom: 1px solid var(--line); padding-bottom: 10px;
+  }
+  .gallery {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 18px;
+  }
+  .card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+    overflow: hidden; display: flex; flex-direction: column; cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 6px 18px rgba(0,0,0,0.08); }
+  .thumb {
+    aspect-ratio: 4/3; background: var(--bg); display: flex; align-items: center; justify-content: center;
+    overflow: hidden; border-bottom: 1px solid var(--line);
+  }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .thumb .fallback { color: var(--muted); font-size: 0.78rem; text-align: center; padding: 10px; }
+  .fallback .tag {
+    display: inline-block; margin-top: 8px; font-size: 0.68rem; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); border-radius: 20px; padding: 2px 10px;
+  }
+  .card-body { padding: 12px 14px; }
+  .card-title { font-size: 0.92rem; font-weight: 600; margin: 0 0 3px; }
+  .card-note { font-size: 0.78rem; color: var(--muted); margin: 0; }
+  footer { margin-top: 64px; color: var(--muted); font-size: 0.85rem; border-top: 1px solid var(--line); padding-top: 20px; }
+
+  .lightbox {
+    position: fixed; inset: 0; background: rgba(20,18,15,0.86); display: none;
+    align-items: center; justify-content: center; padding: 24px; z-index: 10;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox img { max-width: 100%; max-height: 90vh; border-radius: 6px; }
+  .lightbox-close {
+    position: absolute; top: env(safe-area-inset-top, 18px); right: 20px; color: #fff;
+    font-size: 1.6rem; background: none; border: none; cursor: pointer; line-height: 1;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Reem Khalid</h1>
+    <div class="role">Graphic Design &amp; Visual Identity</div>
+    <p class="about">
+      I'm an IT graduate and Full-Stack Development trainee based in Taif, Saudi Arabia, with a parallel
+      practice in graphic design. Most of the work here was created for tech events and student
+      organizations — logos, identity guidelines, and posters for GDG Taif and the Programming and AI Club
+      at Taif University. Coming from a web development background gives me a practical sense of how a
+      design reads on screen, not just on paper.
+    </p>
+    <div class="links">
+      <a href="https://github.com/Reemkhalid1it" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </header>
+
+  <section>
+    <h2 class="section-title">Selected Work</h2>
+    <div class="gallery" id="gallery"></div>
+  </section>
+
+  <footer>
+    Graphic design portfolio · Reem Khalid
+  </footer>
+</div>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose">&times;</button>
+  <img id="lightboxImg" src="" alt="">
+</div>
+
+<script>
+  const works = [
+    { file: "(NLP) Logo Design  Guidelines Identity.pdf", title: "NLP Logo Design & Identity Guidelines", note: "Brand identity guidelines", type: "pdf" },
+    { file: "Health awareness.pdf", title: "Health Awareness", note: "Awareness campaign design", type: "pdf" },
+    { file: "Google club event.pdf", title: "Google Club Event", note: "Event design set", type: "pdf" },
+    { file: "Cybercrime Poster.png", title: "Cybercrime Poster", note: "Awareness poster", type: "image" },
+    { file: "Technological community logos.pdf", title: "Technological Community Logos", note: "Logo collection", type: "pdf" },
+    { file: "Guests .png", title: "Guests", note: "Event graphic", type: "image" },
+    { file: "Tedx.jpeg", title: "TEDx", note: "TEDx event design", type: "image" },
+    { file: "National Day.JPG", title: "National Day", note: "Commemorative design", type: "image" },
+    { file: "Generative AI Hackathon.JPG", title: "Generative AI Hackathon", note: "Event poster", type: "image" },
+    { file: "Information security and encryption.JPG", title: "Information Security & Encryption", note: "Event poster", type: "image" },
+    { file: "Programming and Artificial Intelligence Club.jpeg", title: "Programming & AI Club", note: "Club identity design", type: "image" }
+  ];
+
+  const gallery = document.getElementById('gallery');
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+
+  works.forEach(w => {
+    const card = document.createElement('div');
+    card.className = 'card';
+
+    const thumb = document.createElement('div');
+    thumb.className = 'thumb';
+
+    if (w.type === 'image') {
+      const img = document.createElement('img');
+      img.src = encodeURI(w.file);
+      img.alt = w.title;
+      img.loading = 'lazy';
+      img.onerror = () => {
+        thumb.innerHTML = `<div class="fallback">${w.title}<br><span class="tag">Image</span></div>`;
+      };
+      thumb.appendChild(img);
+      card.onclick = () => {
+        lightboxImg.src = encodeURI(w.file);
+        lightboxImg.alt = w.title;
+        lightbox.classList.add('open');
+      };
+    } else {
+      thumb.innerHTML = `<div class="fallback">${w.title}<br><span class="tag">PDF</span></div>`;
+      card.onclick = () => window.open(encodeURI(w.file), '_blank');
+    }
+
+    const body = document.createElement('div');
+    body.className = 'card-body';
+    body.innerHTML = `<p class="card-title">${w.title}</p><p class="card-note">${w.note}</p>`;
+
+    card.appendChild(thumb);
+    card.appendChild(body);
+    gallery.appendChild(card);
+  });
+
+  document.getElementById('lightboxClose').onclick = () => lightbox.classList.remove('open');
+  lightbox.onclick = (e) => { if (e.target === lightbox) lightbox.classList.remove('open'); };
+</script>
+</body>
+</html>
